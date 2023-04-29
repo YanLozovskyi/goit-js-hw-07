@@ -13,7 +13,6 @@ imageContainer.addEventListener("click", onImageContainerClick);
 function createImageCardsMarkup(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
-      // const { preview, original, description } = item;
       return `<li class="gallery__item">
   <a class="gallery__link" href="${original}">
     <img
@@ -34,7 +33,26 @@ function onImageContainerClick(evt) {
   if (!isGalleryImageEl) {
     return;
   }
+  console.log(evt.target);
+  const instance = basicLightbox.create(
+    `<img src="${evt.target.dataset.source}" width="800" height="600">`,
+    {
+      onShow: () => {
+        window.addEventListener("keydown", onEscClick);
+        console.log("onShow", instance);
+      },
+      onClose: () => {
+        window.removeEventListener("keydown", onEscClick);
+        console.log("onClose", instance);
+      },
+    }
+  );
 
-  const parent = evt.target.closest(".gallery__link");
-  
+  instance.show();
+
+  function onEscClick(evt) {
+    if (evt.code === "Escape") {
+      instance.close();
+    }
+  }
 }
