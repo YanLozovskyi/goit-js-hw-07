@@ -10,8 +10,8 @@ imageContainer.insertAdjacentHTML("beforeend", cardsMarkup);
 
 imageContainer.addEventListener("click", onImageContainerClick);
 
-function createImageCardsMarkup(galleryItems) {
-  return galleryItems
+function createImageCardsMarkup(Items) {
+  return Items
     .map(({ preview, original, description }) => {
       return `<li class="gallery__item">
   <a class="gallery__link" href="${original}">
